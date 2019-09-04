@@ -11,6 +11,7 @@ import edu.eci.arsw.blueprints.persistence.AuthorNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -75,6 +76,11 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         
         return setOfBlueprints;
         
+    }
+
+    @Override
+    public Collection<Blueprint> getAllBlueprints() {
+        return this.blueprints.values();
     }
 
     

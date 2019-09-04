@@ -12,6 +12,7 @@ import edu.eci.arsw.blueprints.persistence.AuthorNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -36,7 +37,11 @@ public class BlueprintsServices {
     }
     
     public Set<Blueprint> getAllBlueprints(){
-        return null;
+        HashSet<Blueprint> setToReturn = new HashSet<Blueprint>();
+        for(Blueprint bp : this.bpp.getAllBlueprints()){
+            setToReturn.add(bpf.filterBlueprint(bp));
+        }
+        return setToReturn;
     }
     
     /**

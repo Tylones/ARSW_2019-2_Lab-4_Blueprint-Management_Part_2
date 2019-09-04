@@ -6,6 +6,8 @@
 package edu.eci.arsw.blueprints.persistence;
 
 import edu.eci.arsw.blueprints.model.Blueprint;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -13,6 +15,11 @@ import java.util.Set;
  * @author hcadavid
  */
 public interface BlueprintsPersistence {
+    
+    /**
+     * @return returns a collection containing all blueprints
+     */
+    public Collection<Blueprint> getAllBlueprints();
     
     /**
      * 

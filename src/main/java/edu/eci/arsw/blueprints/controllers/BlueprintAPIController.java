@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.google.gson.Gson;
 /**
  *
  * @author hcadavid
@@ -33,7 +33,11 @@ public class BlueprintAPIController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getRessourceBlueprints(){
         try{
-            return new ResponseEntity<>("Worked",HttpStatus.ACCEPTED);
+            
+            Gson gson  = new Gson();
+            String jsonToReturn = gson.toJson(bs.getAllBlueprints());
+            
+            return new ResponseEntity<>(jsonToReturn,HttpStatus.ACCEPTED);
             
         }catch(Exception ex){
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE,null,ex);
