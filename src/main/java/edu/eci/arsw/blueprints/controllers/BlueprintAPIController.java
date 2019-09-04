@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 /**
  *
  * @author hcadavid
@@ -30,6 +32,7 @@ public class BlueprintAPIController {
     @Autowired
     BlueprintsServices bs;
     
+ 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getRessourceBlueprints(){
         try{
@@ -43,9 +46,24 @@ public class BlueprintAPIController {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE,null,ex);
             return new ResponseEntity<>("Blueprints not found", HttpStatus.NOT_FOUND);
         }
-        
-        
     }
+    
+    @RequestMapping(value = "/{author}", method = RequestMethod.GET)
+    public ResponseEntity<?> getRessourceBlueprintsAuthor(@PathVariable String author){
+        try{
+            
+            Gson gson  = new Gson();
+            String jsonToReturn = gson.toJson(bs.getBlueprintsByAuthor(author));
+            
+            return new ResponseEntity<>(jsonToReturn,HttpStatus.ACCEPTED);
+            
+        }catch(Exception ex){
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE,null,ex);
+            return new ResponseEntity<>("Blueprints not found", HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    
     
     
     

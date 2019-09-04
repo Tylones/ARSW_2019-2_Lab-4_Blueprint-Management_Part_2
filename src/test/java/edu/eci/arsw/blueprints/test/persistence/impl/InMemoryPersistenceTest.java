@@ -29,12 +29,12 @@ public class InMemoryPersistenceTest {
         InMemoryBlueprintPersistence ibpp=new InMemoryBlueprintPersistence();
 
         Point[] pts0=new Point[]{new Point(40, 40),new Point(15, 15)};
-        Blueprint bp0=new Blueprint("mack", "mypaint",pts0);
+        Blueprint bp0=new Blueprint("mack", "mypaint2",pts0);
         
         ibpp.saveBlueprint(bp0);
         
         Point[] pts=new Point[]{new Point(0, 0),new Point(10, 10)};
-        Blueprint bp=new Blueprint("john", "thepaint",pts);
+        Blueprint bp=new Blueprint("john", "thepaint2",pts);
         
         ibpp.saveBlueprint(bp);
         

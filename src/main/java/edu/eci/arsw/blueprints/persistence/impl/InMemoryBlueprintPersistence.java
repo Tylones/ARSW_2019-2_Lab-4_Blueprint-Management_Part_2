@@ -69,7 +69,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         Set<Blueprint> setOfBlueprints = new HashSet<Blueprint>();
         
         for(Tuple<String, String> t : blueprints.keySet()){
-            if(t.o1 == author){
+            if(t.o1.equals(author)){
                 setOfBlueprints.add(blueprints.get(t));
             }
         }
