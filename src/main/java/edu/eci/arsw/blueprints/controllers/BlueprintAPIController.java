@@ -112,6 +112,35 @@ public class BlueprintAPIController {
     }
     }
     
+    @RequestMapping(value = "/blueprints/{author}/{bpname}", method = RequestMethod.PUT)
+    public ResponseEntity<?> UpdateRessourceBlueprint(@PathVariable String author, @PathVariable String name, @RequestBody String body){
+        try {
+            
+        //registrar dato
+        System.out.println("Received Post");
+        final JSONObject obj = new JSONObject(body);
+        final String jsonName = obj.getString("name");
+        final String jsonauthor = obj.getString("author");
+        
+        final JSONArray pointsJson = obj.getJSONArray("points");
+        Point[] points = new Point[pointsJson.length()];
+        for(int i = 0; i < points.length; i++){
+            final JSONObject point = pointsJson.getJSONObject(i);
+            points[i] = new Point(point.getInt("x"), point.getInt("y"));
+        }
+        
+        
+        Blueprint bp = new Blueprint(jsonauthor, jsonName, points);
+        
+        bs.updateBlueprint(author,name,bp);
+        
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    } catch (Exception ex) {
+        Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
+        return new ResponseEntity<>("Failed Insert Post Blueprint",HttpStatus.FORBIDDEN);            
+    }
+    }
+    
     
     
     
