@@ -63,6 +63,20 @@ public class BlueprintAPIController {
         }
     }
     
+    @RequestMapping(value = "/{author}/{name}", method = RequestMethod.GET)
+    public ResponseEntity<?> getRessourceBlueprintAuthorAndName(@PathVariable String author, @PathVariable String name){
+    try{
+            
+            Gson gson  = new Gson();
+            String jsonToReturn = gson.toJson(bs.getBlueprint(author,name));
+            
+            return new ResponseEntity<>(jsonToReturn,HttpStatus.ACCEPTED);
+            
+        }catch(Exception ex){
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE,null,ex);
+            return new ResponseEntity<>("Blueprints not found", HttpStatus.NOT_FOUND);
+        }
+    }
     
     
     
