@@ -84,7 +84,7 @@ public class BlueprintAPIController {
 ```
 Here's the result when we go on *https://localhost:80/blueprints* :
 
-[](https://i.imgur.com/0e3RXDA.png)
+![](https://i.imgur.com/0e3RXDA.png)
 
 I then added the functions supporting a GET request for the specific ressource */blueprints/{author}* :
 
@@ -107,7 +107,7 @@ public ResponseEntity<?> getRessourceBlueprintsAuthor(@PathVariable String autho
 
 Here's the result when we want to get the ressource *http://localhost:8080/blueprints/etienne* :
 
-[](https://i.imgur.com/FSdoAOK.png)
+![](https://i.imgur.com/FSdoAOK.png)
 
 
 
