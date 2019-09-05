@@ -38,11 +38,9 @@ public class BlueprintAPIController {
     @Autowired
     BlueprintsServices bs;
     
- 
     @RequestMapping(value = "/blueprints", method = RequestMethod.GET)
     public ResponseEntity<?> getRessourceBlueprints(){
         try{
-            
             Gson gson  = new Gson();
             String jsonToReturn = gson.toJson(bs.getAllBlueprints());
             
@@ -54,6 +52,8 @@ public class BlueprintAPIController {
         }
     }
     
+    
+
     @RequestMapping(value = "/blueprints/{author}", method = RequestMethod.GET)
     public ResponseEntity<?> getRessourceBlueprintsAuthor(@PathVariable String author){
         try{
@@ -88,57 +88,56 @@ public class BlueprintAPIController {
     public ResponseEntity<?> addNewRessourceBlueprint(@RequestBody String body){
         try {
         //registrar dato
-        System.out.println("Received Post");
-        final JSONObject obj = new JSONObject(body);
-        final String name = obj.getString("name");
-        final String author = obj.getString("author");
-        
-        final JSONArray pointsJson = obj.getJSONArray("points");
-        Point[] points = new Point[pointsJson.length()];
-        for(int i = 0; i < points.length; i++){
-            final JSONObject point = pointsJson.getJSONObject(i);
-            points[i] = new Point(point.getInt("x"), point.getInt("y"));
+            System.out.println("Received Post");
+            final JSONObject obj = new JSONObject(body);
+            final String name = obj.getString("name");
+            final String author = obj.getString("author");
+
+            final JSONArray pointsJson = obj.getJSONArray("points");
+            Point[] points = new Point[pointsJson.length()];
+            for(int i = 0; i < points.length; i++){
+                final JSONObject point = pointsJson.getJSONObject(i);
+                points[i] = new Point(point.getInt("x"), point.getInt("y"));
+            }
+
+
+            Blueprint bp = new Blueprint(author, name, points);
+
+            bs.addNewBlueprint(bp);
+
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception ex) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Failed Insert Post Blueprint",HttpStatus.FORBIDDEN);            
         }
-        
-        
-        Blueprint bp = new Blueprint(author, name, points);
-        
-        bs.addNewBlueprint(bp);
-        
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    } catch (Exception ex) {
-        Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
-        return new ResponseEntity<>("Failed Insert Post Blueprint",HttpStatus.FORBIDDEN);            
-    }
     }
     
     @RequestMapping(value = "/blueprints/{author}/{bpname}", method = RequestMethod.PUT)
     public ResponseEntity<?> UpdateRessourceBlueprint(@PathVariable String author, @PathVariable String bpname, @RequestBody String body){
         try {
+
+            final JSONObject obj = new JSONObject(body);
+            final String jsonName = obj.getString("name");
+            final String jsonauthor = obj.getString("author");
+
+            final JSONArray pointsJson = obj.getJSONArray("points");
+            Point[] points = new Point[pointsJson.length()];
+            for(int i = 0; i < points.length; i++){
+                final JSONObject point = pointsJson.getJSONObject(i);
+                points[i] = new Point(point.getInt("x"), point.getInt("y"));
+            }
+
+
+            Blueprint bp = new Blueprint(jsonauthor, jsonName, points);
+
+            bs.updateBlueprint(author,bpname,bp);
+            return new ResponseEntity<>(HttpStatus.OK);
+
             
-        //registrar dato
-        System.out.println("Received Put");
-        final JSONObject obj = new JSONObject(body);
-        final String jsonName = obj.getString("name");
-        final String jsonauthor = obj.getString("author");
-        
-        final JSONArray pointsJson = obj.getJSONArray("points");
-        Point[] points = new Point[pointsJson.length()];
-        for(int i = 0; i < points.length; i++){
-            final JSONObject point = pointsJson.getJSONObject(i);
-            points[i] = new Point(point.getInt("x"), point.getInt("y"));
+        } catch (Exception ex) {
+            Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Failed Insert Post Blueprint",HttpStatus.FORBIDDEN);            
         }
-        
-        
-        Blueprint bp = new Blueprint(jsonauthor, jsonName, points);
-        
-        bs.updateBlueprint(author,bpname,bp);
-        
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    } catch (Exception ex) {
-        Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);
-        return new ResponseEntity<>("Failed Insert Post Blueprint",HttpStatus.FORBIDDEN);            
-    }
     }
     
     
