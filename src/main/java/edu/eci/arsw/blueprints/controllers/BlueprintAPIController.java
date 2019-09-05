@@ -113,11 +113,11 @@ public class BlueprintAPIController {
     }
     
     @RequestMapping(value = "/blueprints/{author}/{bpname}", method = RequestMethod.PUT)
-    public ResponseEntity<?> UpdateRessourceBlueprint(@PathVariable String author, @PathVariable String name, @RequestBody String body){
+    public ResponseEntity<?> UpdateRessourceBlueprint(@PathVariable String author, @PathVariable String bpname, @RequestBody String body){
         try {
             
         //registrar dato
-        System.out.println("Received Post");
+        System.out.println("Received Put");
         final JSONObject obj = new JSONObject(body);
         final String jsonName = obj.getString("name");
         final String jsonauthor = obj.getString("author");
@@ -132,7 +132,7 @@ public class BlueprintAPIController {
         
         Blueprint bp = new Blueprint(jsonauthor, jsonName, points);
         
-        bs.updateBlueprint(author,name,bp);
+        bs.updateBlueprint(author,bpname,bp);
         
         return new ResponseEntity<>(HttpStatus.CREATED);
     } catch (Exception ex) {
