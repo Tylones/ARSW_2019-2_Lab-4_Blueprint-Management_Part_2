@@ -83,6 +83,12 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         return this.blueprints.values();
     }
 
+    @Override
+    public boolean updateBlueprint(String author, String bprintname, Blueprint bp) {
+        blueprints.replace(new Tuple<>(author, bprintname), bp);
+        return true;
+    }
+
     
     
 }

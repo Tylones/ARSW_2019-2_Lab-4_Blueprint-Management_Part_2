@@ -72,4 +72,8 @@ public class BlueprintsServices {
         return setToReturn;
     }
     
+    public void updateBlueprint(String author, String bpname, Blueprint bp){
+        this.bpp.updateBlueprint(author, bpname, bp);
+    }
+    
 }
